@@ -7,26 +7,31 @@ public class BackgroundMoveScript : MonoBehaviour {
 	// Background scroll speed can be set in Inspector with slider
 	[Range(1f, 20f)]
 	public float scrollSpeed = 1f;
-	float a;
+	public GameObject player;
 	// Scroll offset value to smoothly repeat backgrounds movement
 	public float scrollOffset;
 
-	// Start position of background movement
-	//Vector2 startPos;
-
-	// Backgrounds new position
-	//float newPos;
-
+	Vector2 startPos;
+	Vector2 playerPos;
+	float newPos;
 	// Use this for initialization
 	void Start () {
 		// Getting backgrounds start position
-		//startPos = transform.position;
+		
+		startPos = transform.position;
+		Debug.Log("playerPos" + playerPos);
+		Debug.Log("startPos" + startPos);
 	}
 	
-
+	
 	void Update () {
-		a += Input.GetAxis("Horizontal");
-		Vector2 offset = new Vector2(a*scrollSpeed, 0);
-		GetComponent<MeshRenderer>().material.mainTextureOffset = offset;
+		playerPos = player.transform.position;
+		if(playerPos.x > startPos.x)
+			{
+				transform.position = startPos + Vector2.right;
+				startPos = transform.position;
+			}
+		Debug.Log("start.X" + startPos.x);
+
 	}
 }
